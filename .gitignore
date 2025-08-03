@@ -1,0 +1,17 @@
+# MATLAB autosave files
+*.asv
+*.m~
+
+# Compiled MEX binaries
+*.mex*
+
+# Simulink Code Generation outputs
+slprj/
+
+# Octave/MATLAB workspace and session files
+octave-workspace
+.autosave
+
+# Test Files
+*.csv
+*.xlsx
