@@ -20,6 +20,7 @@ filename_roomgroups = 'ROOM_GROUPS.csv';
 ROOM_GROUPS = readtable(filename_roomgroups);
 ROOM_GROUPS.Member1Last = string(ROOM_GROUPS.Member1Last);
 ROOM_GROUPS.Member2Last = string(ROOM_GROUPS.Member2Last);
+ROOM_GROUPS.Squatting = logical(ROOM_GROUPS.Squatting);
 
 %% Create the Members
 numMembers = size(MEMBERS.FirstName, 1);
@@ -54,7 +55,7 @@ for index = 1:1:numRoomGroups
     roomSelections(4) = ROOM_GROUPS.Preference4(index);
     roomSelections(5) = ROOM_GROUPS.Preference5(index);
 
-    roomGroups(index) = RoomGroup(tempMembers, roomSelections);
+    roomGroups(index) = RoomGroup(tempMembers, roomSelections, ROOM_GROUPS.Squatting(index));
     clear tempMembers;
 end
 
@@ -66,8 +67,41 @@ rankings = table( ...
     [roomGroups.highestOfficerRank]', ...
     [roomGroups.meanCumulativeGPA]', ...
     [roomGroups.meanTermGPA]', ...
-    'VariableNames', {'members', 'numMembers', 'lowestAcademicClass', 'highestOfficerRank', 'meanCumulativeGPA', 'meanTermGPA'});
+    [roomGroups.squatting]', ...
+    {roomGroups.roomSelections}', ...
+    'VariableNames', {'members', 'numMembers', 'lowestAcademicClass', 'highestOfficerRank', 'meanCumulativeGPA', 'meanTermGPA', 'squatting', 'roomSelections'});
 
 %% Sort the rankings
 rankings = sortrows(rankings, {'numMembers', 'lowestAcademicClass', 'highestOfficerRank', 'meanCumulativeGPA', 'meanTermGPA'}, {'descend', 'ascend', 'ascend', 'descend', 'descend'});
+
+%% Start Making the selections
+AVAILABLE_ROOMS = 1:23; % to update with actual room numbers
+
+for round = 1:4
+    remainingRoomGroups = size(rankings, 1);
+
+    for index = 1:remainingRoomGroups
+        roomMembers = rankings.members(index);
+        memberLast1 = roomMembers{1}(1).lastName;
+        memberLast2 = roomMembers{1}(2).lastName;
+        entry = table( ...
+            {memberLast1}', ...
+            {memberLast2}', ...
+            999, 'VariableNames', {'Member1', 'Member2', 'Room'});
+
+
+        switch round
+            case 1
+                if rankings.squatting(index)
+                    
+                end
+            case 2
+    
+            case 3
+    
+            case 4
+    
+        end
+    end 
+end
 

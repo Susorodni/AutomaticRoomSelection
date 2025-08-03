@@ -8,10 +8,11 @@ classdef RoomGroup
         meanCumulativeGPA double {mustBeReal, mustBeFinite, mustBeBetween(meanCumulativeGPA, 0.0, 4.0)}
         meanTermGPA double {mustBeReal, mustBeFinite, mustBeBetween(meanTermGPA, 0.0, 4.0)}
         roomSelections double {mustBeReal, mustBeFinite, mustBeInteger}
+        squatting (1,1) logical
     end
 
     methods (Access = public)
-        function obj = RoomGroup(members, roomSelections)
+        function obj = RoomGroup(members, roomSelections, squatting)
             if nargin == 0
                 obj.members = Member();
                 obj.roomSelections = 101;
@@ -20,6 +21,7 @@ classdef RoomGroup
                 obj.highestOfficerRank = 15;
                 obj.meanCumulativeGPA = 0.00;
                 obj.meanTermGPA = 0.00;
+                obj.squatting = 0;
             else
                 obj.members = members;
                 obj.roomSelections = roomSelections;
@@ -28,6 +30,7 @@ classdef RoomGroup
                 obj.highestOfficerRank = getHighestOfficerRank(obj);
                 obj.meanCumulativeGPA = getMeanCumulativeGPA(obj);
                 obj.meanTermGPA = getMeanTermGPA(obj);
+                obj.squatting = squatting;
             end
         end
     end
