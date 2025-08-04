@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>RoomGroup</title>
+<meta name="generator" content="MATLAB 25.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2025-08-04">
+<meta name="DC.source" content="RoomGroup.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<pre class="codeinput">
+<span class="keyword">classdef</span> RoomGroup
+
+    <span class="keyword">properties</span> (SetAccess = private)
+        members <span class="typesection">Member</span>
+        numMembers <span class="typesection">(1,1) double {mustBeMember(numMembers, [1 2])}</span> = 1
+        lowestAcademicClass <span class="typesection">double {mustBeReal, mustBeFinite, mustBeInteger, mustBeBetween(lowestAcademicClass, 2, 4)}</span>
+        highestOfficerRank <span class="typesection">(1,1) double {mustBeInteger, mustBeGreaterThanOrEqual(highestOfficerRank, 1), mustBeLessThanOrEqual(highestOfficerRank, 15)}</span> = 15
+        meanCumulativeGPA <span class="typesection">double {mustBeReal, mustBeFinite, mustBeBetween(meanCumulativeGPA, 0.0, 4.0)}</span>
+        meanTermGPA <span class="typesection">double {mustBeReal, mustBeFinite, mustBeBetween(meanTermGPA, 0.0, 4.0)}</span>
+        roomSelections <span class="typesection">double {mustBeReal, mustBeFinite, mustBeInteger}</span>
+        squatting <span class="typesection">(1,1) logical</span>
+    <span class="keyword">end</span>
+
+    <span class="keyword">methods</span> (Access = public)
+        <span class="keyword">function</span> obj = RoomGroup(members, roomSelections, squatting)
+            <span class="keyword">if</span> nargin == 0
+                obj.members = Member();
+                obj.roomSelections = 101;
+                obj.numMembers = 1;
+                obj.lowestAcademicClass = 2;
+                obj.highestOfficerRank = 15;
+                obj.meanCumulativeGPA = 0.00;
+                obj.meanTermGPA = 0.00;
+                obj.squatting = 0;
+            <span class="keyword">else</span>
+                obj.members = members;
+                obj.roomSelections = roomSelections;
+                obj.numMembers = size(obj.members, 2);
+                obj.lowestAcademicClass = getLowestAcademicClass(obj);
+                obj.highestOfficerRank = getHighestOfficerRank(obj);
+                obj.meanCumulativeGPA = getMeanCumulativeGPA(obj);
+                obj.meanTermGPA = getMeanTermGPA(obj);
+                obj.squatting = squatting;
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+    <span class="keyword">methods</span> (Access = private)
+        <span class="keyword">function</span> lowestAcademicClass = getLowestAcademicClass(obj)
+            lowestAcademicClass = min([obj.members.academicClass]);
+        <span class="keyword">end</span>
+
+        <span class="keyword">function</span> highestOfficerRank = getHighestOfficerRank(obj)
+            <span class="keyword">if</span> obj.numMembers &gt; 1
+                rank1 = obj.members(1).officerRank;
+                rank2 = obj.members(2).officerRank;
+
+                <span class="keyword">if</span> rank1 &gt; rank2
+                    highestOfficerRank = rank1;
+                <span class="keyword">else</span>
+                    highestOfficerRank = rank2;
+                <span class="keyword">end</span>
+            <span class="keyword">else</span>
+                highestOfficerRank = obj.members(1).officerRank;
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+
+        <span class="keyword">function</span> meanCumulativeGPA = getMeanCumulativeGPA(obj)
+            meanCumulativeGPA = mean([obj.members.cumulativeGPA]);
+        <span class="keyword">end</span>
+
+        <span class="keyword">function</span> meanTermGPA = getMeanTermGPA(obj)
+            meanTermGPA = mean([obj.members.termGPA]);
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre>
+<pre class="codeoutput">
+ans = 
+
+  RoomGroup with properties:
+
+                members: [1&times;1 Member]
+             numMembers: 1
+    lowestAcademicClass: 2
+     highestOfficerRank: 15
+      meanCumulativeGPA: 0
+            meanTermGPA: 0
+         roomSelections: 101
+              squatting: 0
+
+</pre>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2025a</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+classdef RoomGroup
+
+    properties (SetAccess = private)
+        members Member
+        numMembers (1,1) double {mustBeMember(numMembers, [1 2])} = 1
+        lowestAcademicClass double {mustBeReal, mustBeFinite, mustBeInteger, mustBeBetween(lowestAcademicClass, 2, 4)}
+        highestOfficerRank (1,1) double {mustBeInteger, mustBeGreaterThanOrEqual(highestOfficerRank, 1), mustBeLessThanOrEqual(highestOfficerRank, 15)} = 15
+        meanCumulativeGPA double {mustBeReal, mustBeFinite, mustBeBetween(meanCumulativeGPA, 0.0, 4.0)}
+        meanTermGPA double {mustBeReal, mustBeFinite, mustBeBetween(meanTermGPA, 0.0, 4.0)}
+        roomSelections double {mustBeReal, mustBeFinite, mustBeInteger}
+        squatting (1,1) logical
+    end
+
+    methods (Access = public)
+        function obj = RoomGroup(members, roomSelections, squatting)
+            if nargin == 0
+                obj.members = Member();
+                obj.roomSelections = 101;
+                obj.numMembers = 1;
+                obj.lowestAcademicClass = 2;
+                obj.highestOfficerRank = 15;
+                obj.meanCumulativeGPA = 0.00;
+                obj.meanTermGPA = 0.00;
+                obj.squatting = 0;
+            else
+                obj.members = members;
+                obj.roomSelections = roomSelections;
+                obj.numMembers = size(obj.members, 2);
+                obj.lowestAcademicClass = getLowestAcademicClass(obj);
+                obj.highestOfficerRank = getHighestOfficerRank(obj);
+                obj.meanCumulativeGPA = getMeanCumulativeGPA(obj);
+                obj.meanTermGPA = getMeanTermGPA(obj);
+                obj.squatting = squatting;
+            end
+        end
+    end
+
+    methods (Access = private)
+        function lowestAcademicClass = getLowestAcademicClass(obj)
+            lowestAcademicClass = min([obj.members.academicClass]);
+        end
+
+        function highestOfficerRank = getHighestOfficerRank(obj)
+            if obj.numMembers > 1
+                rank1 = obj.members(1).officerRank;
+                rank2 = obj.members(2).officerRank;
+
+                if rank1 > rank2
+                    highestOfficerRank = rank1;
+                else
+                    highestOfficerRank = rank2;
+                end
+            else
+                highestOfficerRank = obj.members(1).officerRank;
+            end
+        end
+
+        function meanCumulativeGPA = getMeanCumulativeGPA(obj)
+            meanCumulativeGPA = mean([obj.members.cumulativeGPA]);
+        end
+
+        function meanTermGPA = getMeanTermGPA(obj)
+            meanTermGPA = mean([obj.members.termGPA]);
+        end
+    end
+end
+##### SOURCE END #####
+-->
+</body>
+</html>
