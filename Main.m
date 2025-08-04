@@ -60,7 +60,7 @@ for index = 1:1:numRoomGroups
 end
 
 %% Make the rankings
-rankings = table( ...
+rankings = table(...
     {roomGroups.members}', ...
     [roomGroups.numMembers]', ...
     [roomGroups.lowestAcademicClass]', ...
@@ -76,32 +76,87 @@ rankings = sortrows(rankings, {'numMembers', 'lowestAcademicClass', 'highestOffi
 
 %% Start Making the selections
 AVAILABLE_ROOMS = 1:23; % to update with actual room numbers
+selections = table('Size', [0, numel({'Member1', 'Member2', 'Room'})], 'VariableNames', {'Member1', 'Member2', 'Room'}, 'VariableTypes',{'string', 'string', 'double'});
+noSelections = table('Size', [0, numel({'Member1', 'Member2', 'Room'})], 'VariableNames', {'Member1', 'Member2', 'Room'}, 'VariableTypes',{'string', 'string', 'double'});
 
 for round = 1:4
     remainingRoomGroups = size(rankings, 1);
+    index = 1;
 
-    for index = 1:remainingRoomGroups
-        roomMembers = rankings.members(index);
-        memberLast1 = roomMembers{1}(1).lastName;
-        memberLast2 = roomMembers{1}(2).lastName;
+    disp("ROUND " + round + newline);
+    disp("---------")
+    disp("");
+
+    while index <= remainingRoomGroups
+        roomMembers = rankings.members{index};
+        memberLast1 = roomMembers(1).lastName;
+        memberLast2 = "";
+        
+        if size(roomMembers, 2) > 1
+            memberLast2 = roomMembers(2).lastName;
+        end
+
+        disp("Current room group at Index " + index);
+        disp("Member 1: " + memberLast1);
+        disp("Member 2: " + memberLast2 + newline);
+
+
         entry = table( ...
             {memberLast1}', ...
             {memberLast2}', ...
             999, 'VariableNames', {'Member1', 'Member2', 'Room'});
 
+        roomGroupIndex = find(ROOM_GROUPS.Member1Last == memberLast1, 1);
+
+        criteria = false;
 
         switch round
             case 1
-                if rankings.squatting(index)
-                    
-                end
+                criteria = rankings.squatting(index);
+                disp("Squatting is: " + criteria);
             case 2
-    
+                criteria = rankings.lowestAcademicClass(index) >= 4;
+                disp("Senior is: " + criteria);
             case 3
-    
+                criteria = rankings.lowestAcademicClass(index) >= 3;
+                disp("Junior is: " + criteria);
             case 4
-    
+                criteria = true;
         end
+
+        if criteria
+            for i = 1:5
+                colName = sprintf('Preference%d', i);
+                colData = ROOM_GROUPS.(colName);
+                rgIndex = find(ROOM_GROUPS.Member1Last == memberLast1, 1);
+                roomSelection = colData(rgIndex);
+                roomAvailable = AVAILABLE_ROOMS == roomSelection;
+                disp("Preference " + i + ", Room " + roomSelection);
+
+                if any(roomAvailable)
+                    entry.Room(1) = roomSelection;
+                    selections = [selections; entry];
+                    rankings(index, :) = [];
+                    remainingRoomGroups = remainingRoomGroups - 1;
+                    AVAILABLE_ROOMS(find(AVAILABLE_ROOMS == roomSelection, 1)) = [];
+                    disp("Room " + roomSelection + " is available and has been picked");
+                    break;
+                else
+                    disp("Room not available");
+                end
+            end
+
+            if entry.Room(1) == 999
+                noSelections = [noSelections; entry];
+                rankings(index, :) = [];
+                remainingRoomGroups = remainingRoomGroups - 1;
+            end
+        else
+            disp("Current room group does not meet criteria for this round");
+            index = index + 1;
+        end
+
+        disp(newline);
     end 
 end
 
