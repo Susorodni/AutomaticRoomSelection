@@ -1,6 +1,6 @@
-Main Executable
+# Building
 
-1. Prerequisites for Deployment 
+## 1. Prerequisites for Deployment 
 
 Verify that MATLAB Runtime(R2025a) is installed.   
 If not, you can run the MATLAB Runtime installer.
@@ -19,10 +19,10 @@ For more information about the MATLAB Runtime and the MATLAB Runtime installer, 
 "Distribute Applications" in the MATLAB Compiler documentation  
 in the MathWorks Documentation Center.
 
-2. Files to Deploy and Package
+## 2. Files to Deploy and Package
 
-Files to Package for Standalone 
-================================
+### Files to Package for Standalone 
+
 -Main 
 -run_Main.sh (shell script for temporarily setting environment variables and executing 
               the application)
@@ -53,7 +53,7 @@ Files to Package for Standalone
 
 
 
-3. Definitions
+## 3. Definitions
 
 For information on deployment terminology, go to
 https://www.mathworks.com/help and select MATLAB Compiler >
@@ -61,7 +61,7 @@ Getting Started > About Application Deployment >
 Deployment Product Terms in the MathWorks Documentation
 Center.
 
-4. Appendix 
+## 4. Appendix 
 
 A. Linux systems:
 In the following directions, replace MR/R2025a by the directory on the target machine 
@@ -95,7 +95,6 @@ ${LD_LIBRARY_PATH}:MR/R2025a/runtime/glnxa64:MR/R2025a/bin/glnxa64:MR/R2025a/sys
               run the shell script file run_Main.sh 
               instead of setting environment variables. See 
               section 2 "Files to Deploy and Package".    
-
 
 
 
